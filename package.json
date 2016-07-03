@@ -5,7 +5,6 @@
   "main": "dist/mdns.js",
   "scripts": {
     "compile": "babel src --presets=es2015 --out-dir dist",
-    "postinstall": "npm run compile",
     "prepublish": "npm run compile",
     "test": "eslint src"
   },
