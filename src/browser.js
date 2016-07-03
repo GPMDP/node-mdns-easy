@@ -2,6 +2,7 @@ import Emitter from 'events';
 
 export default class extends Emitter {
   constructor(mdns, mdnsType, serviceType = null) {
+    super();
     this.mdnsType = mdnsType;
     this.browser = mdns.createBrowser(serviceType);
   }
