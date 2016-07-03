@@ -5,13 +5,34 @@ export default class extends Emitter {
     super();
     this.mdnsType = mdnsType;
     this.browser = mdns.createBrowser(serviceType);
+    this.ready = false;
+
+    if (this.mdnsType === 'mdnsjs') {
+      this.browser.on('ready', () => {
+        this.ready = true;
+      });
+    } else {
+      this.ready = true;
+    }
+  }
+
+  get ready() {
+    return this._ready || false;
+  }
+
+  set ready(newReady) {
+    if (newReady) {
+      this.emit('ready');
+    }
+    this._ready = newReady;
   }
 
   browse() {
+    if (!this.ready) {
+      return this.once('ready', this.browse.bind(this));
+    }
     if (this.mdnsType === 'mdnsjs') {
-      this.browser.on('ready', () => {
-        this.browser.discover();
-      });
+      this.browser.discover();
       this.browser.on('update', this.serviceUp.bind(this));
     } else if (this.mdnsType === 'mdns') {
       this.browser.on('serviceUp', this.serviceUp.bind(this));
