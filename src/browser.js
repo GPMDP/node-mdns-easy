@@ -32,10 +32,10 @@ export default class extends Emitter {
   }
 
   set ready(newReady) {
+    this._ready = newReady;
     if (newReady) {
       this.emit('ready');
     }
-    this._ready = newReady;
   }
 
   browse() {
