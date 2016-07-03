@@ -1,6 +1,6 @@
 {
   "name": "node-mdns-easy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Node.JS MDNS that just works regardless of OS level dependencies",
   "main": "dist/mdns.js",
   "scripts": {
