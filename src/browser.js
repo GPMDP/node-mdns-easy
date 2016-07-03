@@ -4,15 +4,26 @@ export default class extends Emitter {
   constructor(mdns, mdnsType, serviceType = null) {
     super();
     this.mdnsType = mdnsType;
-    this.browser = mdns.createBrowser(serviceType);
     this.ready = false;
 
     if (this.mdnsType === 'mdnsjs') {
+      this.browser = mdns.createBrowser(serviceType);
       this.browser.on('ready', () => {
         this.ready = true;
       });
     } else {
-      this.ready = true;
+      const sequence = [
+        mdns.rst.DNSServiceResolve(), // eslint-disable-line
+        'DNSServiceGetAddrInfo' in mdns.dns_sd ? mdns.rst.DNSServiceGetAddrInfo() : mdns.rst.getaddrinfo({ families: [4] }), // eslint-disable-line
+        mdns.rst.makeAddressesUnique(),
+      ];
+      try {
+        this.browser = mdns.createBrowser(serviceType, { resolverSequence: sequence });
+        this.browser.on('error', (e) => { console.error(e); }); // eslint-disable-line no-console
+        this.ready = true;
+      } catch (e) {
+        console.error(e); // eslint-disable-line no-console
+      }
     }
   }
 
