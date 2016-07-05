@@ -14,7 +14,7 @@ export default class extends Emitter {
     } else {
       const sequence = [
         mdns.rst.DNSServiceResolve(), // eslint-disable-line
-        'DNSServiceGetAddrInfo' in mdns.dns_sd ? mdns.rst.DNSServiceGetAddrInfo() : mdns.rst.getaddrinfo({ families: [4] }), // eslint-disable-line
+        'DNSServiceGetAddrInfo' in mdns.dns_sd ? mdns.rst.DNSServiceGetAddrInfo() : mdns.rst.getaddrinfo({ families: [0] }), // eslint-disable-line
         mdns.rst.makeAddressesUnique(),
       ];
       try {
