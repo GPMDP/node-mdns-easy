@@ -57,7 +57,7 @@ export default class extends Emitter {
   }
 
   serviceDown(service) {
-    this.emit('serviceDown', this._normalizedService(service));
+    this.emit('serviceDown', this._normalizeService(service));
   }
 
   stop() {
