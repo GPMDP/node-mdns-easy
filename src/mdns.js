@@ -22,15 +22,15 @@ export default class {
 
   _findLibrary() {
     try {
-      const mdns = require('mdns');
-      this.libraryName = 'mdns';
+      const mdns = require('mdnsjs');
+      this.libraryName = 'mdnsjs';
       return mdns;
     } catch (e) {
       // who cares
     }
     try {
-      const mdnsjs = require('mdns-js');
-      this.libraryName = 'mdnsjs';
+      const mdnsjs = require('mdns');
+      this.libraryName = 'mdns';
       return mdnsjs;
     } catch (e) {
       // who cares
