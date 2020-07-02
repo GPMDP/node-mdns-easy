@@ -72,10 +72,10 @@ export default class extends Emitter {
       networkInterface: service.networkInterface,
       port: service.port,
     };
-    normalized.name = service.name || service.fullname.substring(0, service.fullname.indexOf('.'));
+    normalized.name = service.name || (service.fullname && service.fullname.substring(0, service.fullname.indexOf('.')));
     normalized.txtRecord = service.txtRecord || (() => {
       const records = {};
-      service.txt.forEach((item) => {
+      (service.txt || []).forEach((item) => {
         const key = item.substring(0, item.indexOf('='));
         const value = item.substring(item.indexOf('=') + 1);
         records[key] = value;
